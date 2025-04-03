@@ -85,7 +85,7 @@ function createPortfolioFromJSON() {
                             <h4 class="card-title">${item.title}</h4>
                             <p class="card-text">${item.text}</p>
                             <div class="text-center">
-                                <a href="${item.link}" class="btn btn-success">Lien</a>
+                                <a href="${item.link}" class="btn btn-primary">Lien</a>
                             </div>
                         </div>
                     </div>
@@ -102,6 +102,31 @@ function createPortfolioFromJSON() {
                 }
             });
         });
+}
+
+// Function to contact
+document.getElementById("contact-form").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+
+    emailjs.send("service_pqn667l", "template_pryj4ir", {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        message: document.getElementById("message").value
+    }, "jhxpsV59jYZ8lGLku")  
+    .then(function(response) {
+        console.log("Email envoyé avec succès !", response);
+        document.getElementById("response-message").innerText = "Message envoyé avec succès !";
+        document.getElementById("contact-form").reset();
+    }, function(error) {
+        console.log("Erreur lors de l'envoi", error);
+        document.getElementById("response-message").innerText = "Erreur lors de l'envoi du message.";
+        document.getElementById("response-message").style.color = "red";
+    });
+});
+
+const menuToggle = document.getElementById("tonIDdeMenu"); // Remplace "tonIDdeMenu" par l'ID réel
+if (menuToggle) {
+    new bootstrap.Collapse(menuToggle).toggle();
 }
 
 // Call the functions to execute the code
