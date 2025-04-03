@@ -33,9 +33,18 @@ strong, b {
     padding-bottom: 4rem;
 }
 
+/* Navbar */
+
+.navbar-nav .nav-link {
+    color: white !important ;
+}
+.navbar-nav .nav-link:hover {
+    color: #38373763 !important;
+}
+
 /* display background dark color on navbar scroll */
 .navbarScroll.navbarDark {
-    background-color: #5b5b5b;
+    background-color: #383737;
 }
 
 /* hero background image */
@@ -73,8 +82,7 @@ strong, b {
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-}
-   
+}  
 
 /* about */
 .imageAboutPage {
@@ -111,6 +119,10 @@ strong, b {
 }
 .skillsText:hover {
     border: 1px solid #0ba49e;
+}
+#about strong, #about b {
+    font-weight: 600;
+    color: #077a76; 
 }
 
 /* portfolio */
