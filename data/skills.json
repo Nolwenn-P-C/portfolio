@@ -1,32 +1,74 @@
-[
-    {
-        "image": "html-css.jpg",
-        "title": "HTML - CSS",
-        "text": "Intégration d’interfaces responsives et accessibles, utilisation de maquettes Figma, développement d’animations CSS"
-    },
-    {
-        "image": "js.jpg",
-        "title": "javascript",
-        "text": "Manipulation du DOM, création d’éléments dynamiques, gestion de données de formulaires"
-    },
-    {
-        "image": "react.jpg",
-        "title": "React",
-        "text": "Création d’applications React, création de composants et manipulation de leur état"
-    },
-    {
-        "image": "gestion-de-projet.png",
-        "title": "Gestion de projet",
-        "text": "Analyse des besoins d’un client, définition d’une solution technique répondant aux besoins fonctionnelle, planification du projet"
-    },
-    {
-        "image": "optimisation-et-debug.png",
-        "title": "Optimisation et debug",
-        "text": "Identification des anomalies et correction d’un site existant, optimisation SEO et performance et publication d’un site en ligne"
-    },
-    {
-        "image": "test.png",
-        "title": "Test",
-        "title ": "Tests exploratoires, unitaires et d’intégration, définition d’une stratégie de test et d’un rédaction d’un cahier de recette, automatisation de tests E2E et d’API"
-    }
-]
+{
+    "tests_et_outils": [
+        {
+            "image": "cypress.jpg",
+            "title": "Cypress"
+        },
+        {
+            "image": "postman.png",
+            "title": "Postman"
+        },
+        {
+            "image": "jira.jpg",
+            "title": "Jira"
+        },
+        {
+            "image": "swagger.png",
+            "title": "Swagger"
+        },
+        {
+            "image": "api-testing.png",
+            "title": "API Testing"
+        },
+        {
+            "image": "test.png",
+            "title": "Tests logiciels"
+        }
+    ],
+    "strategie_de_test": [
+        {
+            "title": "Analyse des spécifications"
+        },
+        {
+            "title": "Conception de tests (cahier de recette, plans de test)"
+        },
+        {
+            "title": "Automatisation des tests"
+        },
+        {
+            "title": "Gestion des anomalies et reporting"
+        },
+        {
+            "title": "Stratégie de test"
+        },
+        {
+            "title": "Méthodologies de test (TDD, BDD, Shift Left, etc.)"
+        }
+    ],
+    "developpement_et_outils": [
+        {
+            "image": "html.png",
+            "title": "HTML"
+        },
+        {
+            "image": "css.jpg",
+            "title": "CSS"
+        },
+        {
+            "image": "js.png",
+            "title": "JavaScript"
+        },
+        {
+            "image": "react.jpg",
+            "title": "React"
+        },
+        {
+            "image": "git.png",
+            "title": "Git"
+        },
+        {
+            "image": "vscode.png",
+            "title": "VS Code"
+        }
+    ]
+}
