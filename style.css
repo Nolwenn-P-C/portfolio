@@ -186,8 +186,6 @@ strong, b {
 /*************************************************** Portfolio ***************************************************/
 /*****************************************************************************************************************/
 
-
-
 .portfolioContent {
     position: relative;
     overflow: hidden;
@@ -199,10 +197,6 @@ strong, b {
 .row {
     display: flex;
     flex-wrap: wrap;
-}
-
-.col-lg-4 {
-    display: flex;
 }
 
 .portfolioContent .card-body {
