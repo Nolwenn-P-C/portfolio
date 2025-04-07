@@ -38,33 +38,34 @@ function createPortfolioFromJSON() {
     let row = document.createElement("div");
     row.classList.add("row");
 
-    // Load the JSON file
     fetch("data/portfolio.json")
         .then((response) => response.json())
         .then((data) => {
-            // Iterate through the JSON data and create HTML elements
             data.forEach((item, index) => {
                 const card = document.createElement("div");
                 card.classList.add("col-lg-4", "mt-4");
 
-                // Insert HTML content inside the card
                 card.insertAdjacentHTML("beforeend", `
-                        <div class="card portfolioContent common-block">
-                            <img class="card-img-top" src="images/${item.image}" style="width:100%">
-                            <div class="card-body">
-                                <h4 class="card-title">${item.title}</h4>
-                                <p class="card-text">${item.text}</p>
-                                <div class="text-center">
-                                    <a href="${item.link}" class="btn btn-primary">Lien</a>
-                                </div>
+                    <div class="card portfolioContent common-block">
+                        <img class="card-img-top" src="images/${item.image}" style="width:100%">
+                        <div class="card-body">
+                            <h4 class="card-title">${item.title}</h4>
+                            <div class="keywords">
+                                ${item.keywords.map(keyword => `<span class="badge bg-secondary">${keyword}</span>`).join('')}
+                            </div>
+                            <p>Pour plus d'informations</p>
+                        </div>
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <p>${item.text}</p>
+                                <a href="${item.link}" class="btn btn-primary">Lien</a>
                             </div>
                         </div>
+                    </div>
                 `);
 
-                // Append the card to the current row
                 row.insertAdjacentElement("beforeend", card);
 
-                // If the index is a multiple of 3 or it's the last element, create a new row
                 if ((index + 1) % 3 === 0 || index === data.length - 1) {
                     container.insertAdjacentElement("beforeend", row);
                     row = document.createElement("div");
@@ -75,63 +76,70 @@ function createPortfolioFromJSON() {
 }
 
 
+
 // ***************************************************************************************************************** //
 // ***************************************************** Skills **************************************************** //
 // ***************************************************************************************************************** //
 
-// Function to dynamically create skill sections from JSON
+// Crée une card vide avec un titre
+function createCard(title) {
+    return `
+        <div class="card p-3 shadow mb-3" style="width: 32%; min-width: 300px;">
+            <h3 class="text-center">${title}</h3>
+            <div class="content"></div>
+        </div>
+    `;
+}
+
+// Génère une liste pour stratégie de test
+function createList(items) {
+    return `<ul>${items.map(item => `<p>${item.title}</p>`).join('')}</ul>`;
+}
+
+// Génère les blocs de 3 colonnes avec image et titre
+function createSkillsGrid(items) {
+    let html = '';
+    items.forEach((item, index) => {
+        if (index % 3 === 0) html += '<div class="row justify-content-center mt-3">';
+
+        html += `
+            <div class="col-4 text-center mb-3">
+                <div>
+                    <img src="./images/${item.image}" class="logo-img" alt="${item.title}">
+                    <h5 class="mt-2">${item.title}</h5>
+                </div>
+            </div>
+        `;
+
+        if ((index + 1) % 3 === 0 || index === items.length - 1) html += '</div>';
+    });
+
+    return html;
+}
+
+// Fonction principale qui assemble tout
 function createSkillsFromJSON() {
     const container = document.querySelector("#skills .container");
     container.classList.add("d-flex", "justify-content-between", "flex-wrap", "mt-4");
 
     fetch("data/skills.json")
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
             const blocks = [
                 { key: "tests_et_outils", title: "Tests et Outils" },
                 { key: "strategie_de_test", title: "Stratégie de Test" },
                 { key: "developpement_et_outils", title: "Développement et Outils" }
             ];
 
-            blocks.forEach((block) => {
-                const section = document.createElement("div");
-                section.classList.add("card", "p-3", "shadow", "mb-3");
-                section.style.width = "32%";
-                section.style.minWidth = "300px";
+            blocks.forEach(({ key, title }) => {
+                container.insertAdjacentHTML("beforeend", createCard(title));
+                const content = container.lastElementChild.querySelector(".content");
 
-                section.insertAdjacentHTML("beforeend", `<h3 class="text-center">${block.title}</h3>`);
-
-                const content = document.createElement("div");
-
-                if (block.key === "strategie_de_test") {
-                    const list = document.createElement("ul");
-                    data[block.key].forEach((item) => {
-                        list.insertAdjacentHTML("beforeend", `<li>${item.title}</li>`);
-                    });
-                    content.insertAdjacentElement("beforeend", list);
+               if (key === "strategie_de_test") {
+                    content.insertAdjacentHTML("beforeend", createList(data[key]));
                 } else {
-                    let skillRow; // Renamed from 'row' to 'skillRow'
-                    data[block.key].forEach((item, index) => {
-                        if (index % 3 === 0) {
-                            skillRow = document.createElement("div");
-                            skillRow.classList.add("row", "justify-content-center", "mt-3");
-                            content.insertAdjacentElement("beforeend", skillRow);
-                        }
-
-                        const card = document.createElement("div");
-                        card.classList.add("col-4", "text-center", "mb-3");
-                        card.insertAdjacentHTML("beforeend", `
-                            <div>
-                                <img src="./images/${item.image}" class="logo-img" alt="${item.title}">
-                                <h5 class="mt-2">${item.title}</h5>
-                            </div>
-                        `);
-                        skillRow.insertAdjacentElement("beforeend", card);
-                    });
+                    content.insertAdjacentHTML("beforeend", createSkillsGrid(data[key]));
                 }
-
-                section.insertAdjacentElement("beforeend", content);
-                container.insertAdjacentElement("beforeend", section);
             });
         });
 }
