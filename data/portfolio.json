@@ -1,44 +1,77 @@
 [
     {
+        "image": "eco_bliss_bath.png",
+        "title": "Eco Bliss Bath",
+        "keywords": [
+            "Automatisation des tests", 
+            "Cypress",
+            "Analyse des tests"
+        ],
+        "category": "Tests",
+        "text": "Projet d'automatisation des tests pour une start-up écoresponsable, incluant l'analyse des tests manuels, la création de scripts avec Cypress et l'évaluation des résultats.",
+        "accès": "#"
+    },
+    {
+        "image": "image3.png",
+        "title": "Kasa",
+        "keywords": [
+            "React", 
+            "React Router", 
+            "composants",
+            "Git et Github"
+        ],
+        "category": "Développement",
+        "text": "Implémentation du front-end d'une application de location de logement en utilisant React et React Router pour la navigation et la présentation des données.",
+        "accès": "#"
+    },
+    {
+        "image": "sophie_Bluel.png",
+        "title": "Sophie Bluel",
+        "keywords": [
+            "JavaScript",
+            "Git et Github",
+            "utilisation API rest"
+        ],
+        "category": "Développement",
+        "text": "Création d'une interface utilisateur dynamique pour un site d'architecte d'intérieur, incluant une page de connexion et une modale d'upload, en utilisant JavaScript et une API.",
+        "accès": "#"
+    },
+    {
+        "image": "724.png",
+        "title": "724",
+        "keywords": [
+            "Campagne de tests", 
+            "Tests fonctionnels", 
+            "Tests exploratoires", 
+            "JIRA", 
+            "Rapport de bugs"
+        ],
+        "category": "Tests",
+        "text": "Réalisation d'une campagne de tests complète pour un site web d'agence d'événementiel, incluant des tests fonctionnels et exploratoires, avec documentation des anomalies dans JIRA.",
+        "accès": ""
+    },
+    {
+        "image": "print_it.png",
+        "title": "Print it!",
+        "keywords": [
+            "Javascript", 
+            "carrousel interactif"
+        ],
+        "category": "Développement",
+        "text": "Mise à jour d'un site web statique avec un carrousel interactif en JavaScript, pour une expérience utilisateur plus engageante.",
+        "accès": "#"
+    },
+    {
         "image": "image1.png",
         "title": "Booki",
         "keywords": [
             "HTML",
-            "CSS"
+            "CSS",
+            "Responsive design",
+            "Figma"
         ],
-        "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "link": "#"
-    },
-    {
-        "image": "image2.png",
-        "title": "Mon Vieux grimoire",
-        "keywords": [
-            "Javascript",
-            "utilisation API rest"
-        ],
-        "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "link": "#"
-    },
-    {
-        "image": "image3.png",
-        "title": "Kasa",
-        "keywords": [
-            "React",
-            "React-router",
-            "node.js"
-        ],
-        "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "link": "#"
-    },
-    {
-        "image": "image3.png",
-        "title": "Kasa",
-        "keywords": [
-            "React",
-            "React-router",
-            "node.js"
-        ],
-        "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "link": "#"
+        "category": "Développement",
+        "text": "Intégration d'une interface web responsive pour une agence de voyage, en respectant les spécificités des maquettes fournies, avec HTML et CSS.",
+        "accès": "#"
     }
 ]
