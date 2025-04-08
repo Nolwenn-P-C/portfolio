@@ -32,49 +32,80 @@ function handleNavbarCollapse() {
 // *************************************************** Portfolio *************************************************** //
 // ***************************************************************************************************************** //
 
-// Function to dynamically create HTML elements from the JSON file
-function createPortfolioFromJSON() {
-    const container = document.querySelector("#portfolio .container");
-    let row = document.createElement("div");
-    row.classList.add("row");
-
+// Récupérer les données JSON et lancer les fonctions
+function createPortfolioFromJSON(categoryFilter = "Tous") {
     fetch("data/portfolio.json")
-        .then((response) => response.json())
-        .then((data) => {
-            data.forEach((item, index) => {
-                const card = document.createElement("div");
-                card.classList.add("col-lg-4", "mt-4");
+        .then(response => response.json())
+        .then(projects => {
+            const container = document.querySelector("#portfolio .container");
+            
+            container.querySelectorAll('.filters, .row').forEach(element => element.remove());
 
-                card.insertAdjacentHTML("beforeend", `
-                    <div class="card portfolioContent common-block">
-                        <img class="card-img-top" src="images/${item.image}" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">${item.title}</h4>
-                            <div class="keywords">
-                                ${item.keywords.map(keyword => `<span class="badge bg-secondary">${keyword}</span>`).join('')}
-                            </div>
-                            <p>Pour plus d'informations</p>
-                        </div>
-                        <div class="overlay">
-                            <div class="overlay-content">
-                                <p>${item.text}</p>
-                                <a href="${item.link}" class="btn btn-primary">Lien</a>
-                            </div>
-                        </div>
-                    </div>
-                `);
-
-                row.insertAdjacentElement("beforeend", card);
-
-                if ((index + 1) % 3 === 0 || index === data.length - 1) {
-                    container.insertAdjacentElement("beforeend", row);
-                    row = document.createElement("div");
-                    row.classList.add("row");
-                }
-            });
+            createFilters(projects);
+            createPortfolio(projects, categoryFilter);
         });
 }
 
+// Création des filtres
+function createFilters(projects) {
+    const container = document.querySelector("#portfolio .container");
+
+    // Création des catégories sans doublon
+    const filters = ["Tous", ...new Set(projects.map(project => project.category))];
+
+    const filterDiv = document.createElement("div");
+    filterDiv.classList.add("filters", "text-center", "mb-4");
+
+    filterDiv.insertAdjacentHTML("beforeend", 
+        filters.map(category => 
+            `<button class="filter-btn" data-category="${category}">${category}</button>`
+        ).join('')
+    );
+
+    container.insertAdjacentElement("beforeend", filterDiv);
+
+    document.querySelectorAll(".filter-btn").forEach(button => {
+        button.addEventListener("click", () => createPortfolioFromJSON(button.dataset.category));
+    });
+}
+
+// Création des cartes projets
+function createPortfolio(projects, categoryFilter) {
+    const container = document.querySelector("#portfolio .container");
+
+    const row = document.createElement("div");
+    row.classList.add("row");
+
+    projects.forEach(project => {
+        if (categoryFilter === "Tous" || project.category === categoryFilter) {
+            const card = document.createElement("div");
+            card.classList.add("col-lg-4", "mt-4");
+
+            card.insertAdjacentHTML("beforeend", `
+                <div class="card portfolioContent common-block">
+                    <img class="card-img-top" src="images/${project.image}" style="width:100%">
+                    <div class="card-body">
+                        <h4 class="card-title">${project.title}</h4>
+                        <div class="keywords">
+                            ${project.keywords.map(keyword => `<span class="badge bg-secondary">${keyword}</span>`).join('')}
+                        </div>
+                        <p>Pour plus d'informations</p>
+                    </div>
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <p>${project.text}</p>
+                            <a href="${project.link}" class="btn btn-primary">Lien</a>
+                        </div>
+                    </div>
+                </div>
+            `);
+
+            row.appendChild(card);
+        }
+    });
+
+    container.insertAdjacentElement("beforeend", row);
+}
 
 
 // ***************************************************************************************************************** //

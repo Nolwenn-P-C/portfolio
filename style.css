@@ -54,7 +54,7 @@ strong, b {
 }
 
 .navbar-nav .nav-link:hover {
-    color: #38373763 !important;
+    color: #077a76 !important;
 }
 
 .navbarScroll.navbarDark {
@@ -194,6 +194,21 @@ strong, b {
     height: 100%; 
 }
 
+.filter-btn {
+    background-color: #0ba49e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: #077a76;
+}
+
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -246,6 +261,7 @@ strong, b {
     left: 0;
     width: 100%;
     height: 100%;
+    padding: 20px;
     background-color: rgba(0, 0, 0, 0.90);
     opacity: 0;
     transition: 0.3s ease;
@@ -257,6 +273,7 @@ strong, b {
 
 .overlay-content {
     color: white;
+    max-width: 80%;
 }
 
 .portfolioContent:hover .overlay {
