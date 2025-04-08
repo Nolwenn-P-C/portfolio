@@ -58,7 +58,7 @@ function createFilters(projects) {
 
     filterDiv.insertAdjacentHTML("beforeend", 
         filters.map(category => 
-            `<button class="filter-btn" data-category="${category}">${category}</button>`
+            `<button class="btn btn-primary filter-btn" data-category="${category}">${category}</button>`
         ).join('')
     );
 
@@ -181,27 +181,45 @@ function createSkillsFromJSON() {
 // **************************************************** Contact **************************************************** //
 // ***************************************************************************************************************** //
 
-// Function to contact
 document.getElementById("contact-form").addEventListener("submit", function(event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
+    // Fonction de nettoyage des entrées utilisateur
+    function sanitizeInput(input) {
+        const tempDiv = document.createElement('div');
+        tempDiv.textContent = input;
+        return tempDiv.innerHTML;
+    }
+
+    const name = sanitizeInput(document.getElementById("name").value.trim());
+    const email = sanitizeInput(document.getElementById("email").value.trim());
+    const message = sanitizeInput(document.getElementById("message").value.trim());
+
+    if (!name || !email || !message) {
+        const errorMessage = '<p class="text-center" style="color: red;">Tous les champs sont requis.</p>';
+        document.getElementById("response-message").insertAdjacentHTML('beforeend', errorMessage);
+        return;
+    }
+
+    // Envoi de l'email
     emailjs.send("service_pqn667l", "template_pryj4ir", {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        message: document.getElementById("message").value
-    }, "jhxpsV59jYZ8lGLku")  
+        name: name,
+        email: email,
+        message: message
+    }, "jhxpsV59jYZ8lGLku")
     .then(function(response) {
         console.log("Email envoyé avec succès !", response);
-        document.getElementById("response-message").innerText = "Message envoyé avec succès !";
+        const successMessage = '<p class="text-center" style="color: green;">Message envoyé avec succès.</p>';
+        document.getElementById("response-message").insertAdjacentHTML('beforeend', successMessage);
         document.getElementById("contact-form").reset();
     }, function(error) {
         console.log("Erreur lors de l'envoi", error);
-        document.getElementById("response-message").innerText = "Erreur lors de l'envoi du message.";
-        document.getElementById("response-message").style.color = "red";
+        const errorMessage = '<p class="text-center" style="color: red;">Erreur lors de l envoi du message.</p>';
+        document.getElementById("response-message").insertAdjacentHTML('beforeend', errorMessage);
     });
 });
 
-const menuToggle = document.getElementById("tonIDdeMenu"); // Remplace "tonIDdeMenu" par l'ID réel
+const menuToggle = document.getElementById("navbarSupportedContent");
 if (menuToggle) {
     new bootstrap.Collapse(menuToggle).toggle();
 }
