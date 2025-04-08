@@ -94,7 +94,7 @@ function createPortfolio(projects, categoryFilter) {
                     <div class="overlay">
                         <div class="overlay-content">
                             <p>${project.text}</p>
-                            <a href="${project.link}" class="btn btn-primary">Lien</a>
+                            <a href="${project.accès}" class="btn btn-primary">Lien</a>
                         </div>
                     </div>
                 </div>
@@ -151,7 +151,7 @@ function createSkillsGrid(items) {
 // Fonction principale qui assemble tout
 function createSkillsFromJSON() {
     const container = document.querySelector("#skills .container");
-    container.classList.add("d-flex", "justify-content-between", "flex-wrap", "mt-4");
+    container.classList.add( "mt-4");
 
     fetch("data/skills.json")
         .then(response => response.json())

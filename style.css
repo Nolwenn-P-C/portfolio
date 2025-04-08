@@ -10,6 +10,7 @@ p, li {
     font-size: 1.2rem;
     font-weight: 300;
     line-height: 1.5;
+    
 }
 
 strong, b {
@@ -112,23 +113,18 @@ strong, b {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
+#about .col-lg-8{
+    text-align: justify;
+}
 
 /*****************************************************************************************************************/
 /***************************************************** Skills ****************************************************/
 /*****************************************************************************************************************/
 
-.skills-container {
+#skills .container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    align-items: stretch; 
-}
-
-.skills-container .card {
-    flex: 1 1 300px;
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .card{
@@ -365,7 +361,26 @@ strong, b {
 
 
 /*****************************************************************************************************************/
-/***************************************************** Footer ****************************************************/
+/*************************************************** Responsive **************************************************/
 /*****************************************************************************************************************/
+
+
+@media (max-width: 767.98px) {
+    .imageAboutPage {
+        margin: 0 auto;
+        display: block;
+        margin-bottom: 3rem;
+    }
+    
+    #skills .container {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .skills-container .card {
+        flex: 1 1 100%; 
+        margin-bottom: 2rem;
+    }
+}
 
 
