@@ -83,9 +83,9 @@ function createPortfolio(projects, categoryFilter) {
 
             card.insertAdjacentHTML("beforeend", `
                 <div class="card portfolioContent common-block">
-                    <img class="card-img-top" src="images/${project.image}" style="width:100%">
+                    <img class="card-img-top" src="images/${project.image}" alt="${project.alt}" style="width:100%">
                     <div class="card-body">
-                        <h4 class="card-title">${project.title}</h4>
+                        <h3 class="card-title">${project.title}</h3>
                         <div class="keywords">
                             ${project.keywords.map(keyword => `<span class="badge bg-secondary">${keyword}</span>`).join('')}
                         </div>
@@ -137,7 +137,7 @@ function createSkillsGrid(items) {
             <div class="col-4 text-center mb-3">
                 <div>
                     <img src="./images/${item.image}" class="logo-img" alt="${item.title}">
-                    <h5 class="mt-2">${item.title}</h5>
+                    <h4 class="mt-2">${item.title}</h4>
                 </div>
             </div>
         `;

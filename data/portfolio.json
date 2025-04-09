@@ -1,9 +1,10 @@
 [
     {
         "image": "eco_bliss_bath.png",
+        "alt": "Projet d'automatisation des tests pour Eco Bliss Bath",
         "title": "Eco Bliss Bath",
         "keywords": [
-            "Automatisation des tests", 
+            "Automatisation des tests",
             "Cypress",
             "Analyse des tests"
         ],
@@ -13,10 +14,11 @@
     },
     {
         "image": "image3.png",
+        "alt": "Implémentation du front-end pour Kasa",
         "title": "Kasa",
         "keywords": [
-            "React", 
-            "React Router", 
+            "React",
+            "React Router",
             "composants",
             "Git et Github"
         ],
@@ -26,6 +28,7 @@
     },
     {
         "image": "sophie_Bluel.png",
+        "alt": "Interface utilisateur dynamique pour Sophie Bluel",
         "title": "Sophie Bluel",
         "keywords": [
             "JavaScript",
@@ -38,12 +41,13 @@
     },
     {
         "image": "724.png",
+        "alt": "Campagne de tests pour 724",
         "title": "724",
         "keywords": [
-            "Campagne de tests", 
-            "Tests fonctionnels", 
-            "Tests exploratoires", 
-            "JIRA", 
+            "Campagne de tests",
+            "Tests fonctionnels",
+            "Tests exploratoires",
+            "JIRA",
             "Rapport de bugs"
         ],
         "category": "Tests",
@@ -52,9 +56,10 @@
     },
     {
         "image": "print_it.png",
+        "alt": "Carrousel interactif pour Print it!",
         "title": "Print it!",
         "keywords": [
-            "Javascript", 
+            "Javascript",
             "carrousel interactif"
         ],
         "category": "Développement",
@@ -63,6 +68,7 @@
     },
     {
         "image": "image1.png",
+        "alt": "Interface web responsive pour Booki",
         "title": "Booki",
         "keywords": [
             "HTML",
