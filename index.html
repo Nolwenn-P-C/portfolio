@@ -110,14 +110,14 @@
         </section>
 
         <!-- portfolio section-->
-        <section id="portfolio">
+        <section id="portfolio" data-cy="portfolio-section">
             <div class="container mt-3">
                 <h2 class="text-center">Mes projets</h2>
             </div>
         </section>
 
         <!-- skills section-->
-        <section id="skills">
+        <section id="skills" data-cy="skills-section">
             <h2 class="text-center">Mes compétences</h2>
             <div class="container">
             </div>
@@ -143,20 +143,20 @@
                     <div class="col-lg-6 contactColumn2">
                         <form id="contact-form">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nom</label>
-                                <input type="text" id="name" class="form-control" placeholder="Votre nom" required>
+                                <label for="name" class="form-label" data-cy="contact-name">Nom</label>
+                                <input type="text" id="name" class="form-control" placeholder="Votre nom">
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" id="email" class="form-control" placeholder="Votre email" required>
+                                <label for="email" class="form-label" data-cy="contact-email">Email</label>
+                                <input type="email" id="email" class="form-control" placeholder="Votre email">
                             </div>
                             <div class="mb-3">
-                                <label for="message" class="form-label">Message</label>
-                                <textarea id="message" class="form-control" placeholder="Votre message" rows="4" required></textarea>
+                                <label for="message" class="form-label" data-cy="contact-message">Message</label>
+                                <textarea id="message" class="form-control" placeholder="Votre message" rows="4"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                            <button type="submit" class="btn btn-primary" data-cy="contact-send">Envoyer</button>
                         </form>
-                        <p id="response-message"></p>
+                        <p id="response-message"  data-cy="response-message"></p>
                     </div>
                 </div>
             </div>
