@@ -55,6 +55,7 @@ function createFilters(projects) {
 
     const filterDiv = document.createElement("div");
     filterDiv.classList.add("filters", "text-center", "mb-4");
+    filterDiv.setAttribute("data-cy", "filters-container");
 
     filterDiv.insertAdjacentHTML("beforeend", 
         filters.map(category => 
@@ -75,26 +76,29 @@ function createPortfolio(projects, categoryFilter) {
 
     const row = document.createElement("div");
     row.classList.add("row");
+    row.setAttribute("data-cy", "portfolio-row");
 
     projects.forEach(project => {
         if (categoryFilter === "Tous" || project.category === categoryFilter) {
             const card = document.createElement("div");
             card.classList.add("col-lg-4", "mt-4");
+            card.setAttribute("data-cy", "portfolio-card");
+            card.setAttribute("data-category", project.category);
 
             card.insertAdjacentHTML("beforeend", `
                 <div class="card portfolioContent common-block">
-                    <img class="card-img-top" src="images/${project.image}" alt="${project.alt}" style="width:100%">
+                    <img class="card-img-top" src="images/${project.image}" alt="${project.alt}" style="width:100%" data-cy="portfolio-img">
                     <div class="card-body">
-                        <h3 class="card-title">${project.title}</h3>
-                        <div class="keywords">
+                        <h3 class="card-title" data-cy="portfolio-title">${project.title}</h3>
+                        <div class="keywords" data-cy="portfolio-keywords">
                             ${project.keywords.map(keyword => `<span class="badge bg-secondary">${keyword}</span>`).join('')}
                         </div>
                         <p>Pour plus d'informations</p>
                     </div>
                     <div class="overlay">
                         <div class="overlay-content">
-                            <p>${project.text}</p>
-                            <a href="${project.accès}" class="btn btn-primary">Lien</a>
+                            <p data-cy="portfolio-text">${project.text}</p>
+                            <a href="${project.accès}" class="btn btn-primary" data-cy="portfolio-lien">Lien</a>
                         </div>
                     </div>
                 </div>
@@ -113,9 +117,9 @@ function createPortfolio(projects, categoryFilter) {
 // ***************************************************************************************************************** //
 
 // Crée une card vide avec un titre
-function createCard(title) {
+function createCard(title, dataCy) {
     return `
-        <div class="card p-3 shadow mb-3" style="width: 32%; min-width: 300px;">
+        <div class="card p-3 shadow mb-3" style="width: 32%; min-width: 300px;" data-cy="${dataCy}">
             <h3 class="text-center">${title}</h3>
             <div class="content"></div>
         </div>
@@ -124,7 +128,7 @@ function createCard(title) {
 
 // Génère une liste pour stratégie de test
 function createList(items) {
-    return `<ul>${items.map(item => `<p>${item.title}</p>`).join('')}</ul>`;
+    return `<ul data-cy="card-strategie-test-ul">${items.map(item => `<p>${item.title}</p>`).join('')}</ul>`;
 }
 
 // Génère les blocs de 3 colonnes avec image et titre
@@ -136,8 +140,8 @@ function createSkillsGrid(items) {
         html += `
             <div class="col-4 text-center mb-3">
                 <div>
-                    <img src="./images/${item.image}" class="logo-img" alt="${item.title}">
-                    <h4 class="mt-2">${item.title}</h4>
+                    <img src="./images/${item.image}" class="logo-img" alt="${item.title}" data-cy="skills-img">
+                    <h4 class="mt-2" data-cy="skills-title-img">${item.title}</h4>
                 </div>
             </div>
         `;
@@ -157,24 +161,23 @@ function createSkillsFromJSON() {
         .then(response => response.json())
         .then(data => {
             const blocks = [
-                { key: "tests_et_outils", title: "Tests et Outils" },
-                { key: "strategie_de_test", title: "Stratégie de Test" },
-                { key: "developpement_et_outils", title: "Développement et Outils" }
+                { key: "tests_et_outils", title: "Tests et Outils", "data-cy": "card-tests-outils" },
+                { key: "strategie_de_test", title: "Stratégie de Test", "data-cy": "card-strategie-test" },
+                { key: "developpement_et_outils", title: "Développement et Outils", "data-cy": "card-dev-outils" }
             ];
-
-            blocks.forEach(({ key, title }) => {
-                container.insertAdjacentHTML("beforeend", createCard(title));
+            
+            blocks.forEach(({ key, title, "data-cy": dataCy }) => {
+                container.insertAdjacentHTML("beforeend", createCard(title, dataCy));
                 const content = container.lastElementChild.querySelector(".content");
-
-               if (key === "strategie_de_test") {
+            
+                if (key === "strategie_de_test") {
                     content.insertAdjacentHTML("beforeend", createList(data[key]));
                 } else {
                     content.insertAdjacentHTML("beforeend", createSkillsGrid(data[key]));
                 }
-            });
+            });            
         });
 }
-
 
 
 // ***************************************************************************************************************** //
@@ -184,7 +187,7 @@ function createSkillsFromJSON() {
 document.getElementById("contact-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    // Fonction de nettoyage des entrées utilisateur
+    // Nettoyage des entrées utilisateur
     function sanitizeInput(input) {
         const tempDiv = document.createElement('div');
         tempDiv.textContent = input;
@@ -195,13 +198,21 @@ document.getElementById("contact-form").addEventListener("submit", function(even
     const email = sanitizeInput(document.getElementById("email").value.trim());
     const message = sanitizeInput(document.getElementById("message").value.trim());
 
+    const responseMessage = document.getElementById("response-message");
+
+    // Supprime tout message existant avant d’en afficher un nouveau
+    while (responseMessage.firstChild) {
+        responseMessage.removeChild(responseMessage.firstChild);
+    }
+
+    // Validation des champs
     if (!name || !email || !message) {
-        const errorMessage = '<p class="text-center" style="color: red;">Tous les champs sont requis.</p>';
-        document.getElementById("response-message").insertAdjacentHTML('beforeend', errorMessage);
+        const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Tous les champs sont requis.</p>`;
+        responseMessage.insertAdjacentHTML('beforeend', errorMessage);
         return;
     }
 
-    // Envoi de l'email
+    // Envoi via EmailJS
     emailjs.send("service_pqn667l", "template_pryj4ir", {
         name: name,
         email: email,
@@ -209,20 +220,18 @@ document.getElementById("contact-form").addEventListener("submit", function(even
     }, "jhxpsV59jYZ8lGLku")
     .then(function(response) {
         console.log("Email envoyé avec succès !", response);
-        const successMessage = '<p class="text-center" style="color: green;">Message envoyé avec succès.</p>';
-        document.getElementById("response-message").insertAdjacentHTML('beforeend', successMessage);
+
+        const successMessage = `<p class="text-center" style="color: green;" data-cy="success-message">Message envoyé avec succès.</p>`;
+        responseMessage.insertAdjacentHTML('beforeend', successMessage);
+
         document.getElementById("contact-form").reset();
     }, function(error) {
         console.log("Erreur lors de l'envoi", error);
-        const errorMessage = '<p class="text-center" style="color: red;">Erreur lors de l envoi du message.</p>';
-        document.getElementById("response-message").insertAdjacentHTML('beforeend', errorMessage);
+
+        const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Erreur lors de l'envoi du message.</p>`;
+        responseMessage.insertAdjacentHTML('beforeend', errorMessage);
     });
 });
-
-const menuToggle = document.getElementById("navbarSupportedContent");
-if (menuToggle) {
-    new bootstrap.Collapse(menuToggle).toggle();
-}
 
 
 // ***************************************************************************************************************** //
