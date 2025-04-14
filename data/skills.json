@@ -1,27 +1,27 @@
 {
     "tests_et_outils": [
         {
-            "image": "cypress.jpg",
+            "image": "cypress.webp",
             "title": "Cypress"
         },
         {
-            "image": "postman.png",
+            "image": "postman.webp",
             "title": "Postman"
         },
         {
-            "image": "jira.jpg",
+            "image": "jira.webp",
             "title": "Jira"
         },
         {
-            "image": "swagger.png",
+            "image": "swagger.webp",
             "title": "Swagger"
         },
         {
-            "image": "api-testing.png",
+            "image": "api-testing.webp",
             "title": "API Testing"
         },
         {
-            "image": "test.png",
+            "image": "test.webp",
             "title": "Tests logiciels"
         }
     ],
@@ -47,27 +47,27 @@
     ],
     "developpement_et_outils": [
         {
-            "image": "html.png",
+            "image": "html.webp",
             "title": "HTML"
         },
         {
-            "image": "css.jpg",
+            "image": "css.webp",
             "title": "CSS"
         },
         {
-            "image": "js.png",
+            "image": "js.webp",
             "title": "JavaScript"
         },
         {
-            "image": "react.jpg",
+            "image": "react.webp",
             "title": "React"
         },
         {
-            "image": "git.png",
+            "image": "git.webp",
             "title": "Git"
         },
         {
-            "image": "vscode.png",
+            "image": "vscode.webp",
             "title": "VS Code"
         }
     ]

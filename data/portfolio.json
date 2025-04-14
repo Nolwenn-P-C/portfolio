@@ -1,6 +1,6 @@
 [
     {
-        "image": "eco_bliss_bath.png",
+        "image": "eco_bliss_bath.webp",
         "alt": "Projet d'automatisation des tests pour Eco Bliss Bath",
         "title": "Eco Bliss Bath",
         "keywords": [
@@ -13,7 +13,7 @@
         "accès": "#"
     },
     {
-        "image": "image3.png",
+        "image": "image3.webp",
         "alt": "Implémentation du front-end pour Kasa",
         "title": "Kasa",
         "keywords": [
@@ -27,7 +27,7 @@
         "accès": "#"
     },
     {
-        "image": "sophie_Bluel.png",
+        "image": "sophie_Bluel.webp",
         "alt": "Interface utilisateur dynamique pour Sophie Bluel",
         "title": "Sophie Bluel",
         "keywords": [
@@ -40,7 +40,7 @@
         "accès": "#"
     },
     {
-        "image": "724.png",
+        "image": "724.webp",
         "alt": "Campagne de tests pour 724",
         "title": "724",
         "keywords": [
@@ -55,7 +55,7 @@
         "accès": ""
     },
     {
-        "image": "print_it.png",
+        "image": "print_it.webp",
         "alt": "Carrousel interactif pour Print it!",
         "title": "Print it!",
         "keywords": [
@@ -67,7 +67,7 @@
         "accès": "#"
     },
     {
-        "image": "image1.png",
+        "image": "image1.webp",
         "alt": "Interface web responsive pour Booki",
         "title": "Booki",
         "keywords": [

@@ -85,7 +85,7 @@ strong, b {
 .bgimage {
     height: 100vh;
     max-height: 900px;
-    background: url("images/fond_portfolio_nb.jpg");
+    background: url("images/fond_portfolio_nb.webp");
     background-size: cover;
     position: relative;
     background-color: #000; /* Fond noir pour la section */
