@@ -10,7 +10,7 @@
         ],
         "category": "Tests",
         "text": "Projet d'automatisation des tests pour une start-up écoresponsable, incluant l'analyse des tests manuels, la création de scripts avec Cypress et l'évaluation des résultats.",
-        "accès": "#"
+        "accès": "https://github.com/Nolwenn-P-C/Automatisez_des_tests_pour_une_boutique_en_ligne-main.git"
     },
     {
         "image": "image3.webp",
@@ -24,7 +24,7 @@
         ],
         "category": "Développement",
         "text": "Implémentation du front-end d'une application de location de logement en utilisant React et React Router pour la navigation et la présentation des données.",
-        "accès": "#"
+        "accès": "https://github.com/Nolwenn-P-C/appli_location_immobiliere_React.git"
     },
     {
         "image": "sophie_Bluel.webp",
@@ -37,7 +37,7 @@
         ],
         "category": "Développement",
         "text": "Création d'une interface utilisateur dynamique pour un site d'architecte d'intérieur, incluant une page de connexion et une modale d'upload, en utilisant JavaScript et une API.",
-        "accès": "#"
+        "accès": "https://github.com/Nolwenn-P-C/Projet_6_Sophie_Bluel.git"
     },
     {
         "image": "724.webp",
@@ -52,7 +52,7 @@
         ],
         "category": "Tests",
         "text": "Réalisation d'une campagne de tests complète pour un site web d'agence d'événementiel, incluant des tests fonctionnels et exploratoires, avec documentation des anomalies dans JIRA.",
-        "accès": ""
+        "accès": "https://1drv.ms/f/c/fa965a2256f10a10/EryLNvWdLhxCisaM-9rJ6X0BpHLuoga3hOhAR3UnOSAdlw?e=r4Y8IZ"
     },
     {
         "image": "print_it.webp",
@@ -64,7 +64,7 @@
         ],
         "category": "Développement",
         "text": "Mise à jour d'un site web statique avec un carrousel interactif en JavaScript, pour une expérience utilisateur plus engageante.",
-        "accès": "#"
+        "accès": "https://nolwenn-p-c.github.io/print-it/"
     },
     {
         "image": "image1.webp",
@@ -78,6 +78,6 @@
         ],
         "category": "Développement",
         "text": "Intégration d'une interface web responsive pour une agence de voyage, en respectant les spécificités des maquettes fournies, avec HTML et CSS.",
-        "accès": "#"
+        "accès": "https://nolwenn-p-c.github.io/booki/"
     }
 ]

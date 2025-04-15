@@ -98,7 +98,7 @@ function createPortfolio(projects, categoryFilter) {
                     <div class="overlay">
                         <div class="overlay-content">
                             <p data-cy="portfolio-text">${project.text}</p>
-                            <a href="${project.accès}" class="btn btn-primary" data-cy="portfolio-lien">Lien</a>
+                            <a href="${project.accès}" class="btn btn-primary" data-cy="portfolio-lien">Consulter</a>
                         </div>
                     </div>
                 </div>
