@@ -212,6 +212,24 @@ document.getElementById("contact-form").addEventListener("submit", function(even
         return;
     }
 
+    // Vérification de l'email
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.(fr|com|net|org|io|edu)$/.test(email.toLowerCase());
+    }
+
+    if (!isValidEmail(email)) {
+        const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Adresse email invalide.</p>`;
+        responseMessage.insertAdjacentHTML('beforeend', errorMessage);
+        return;
+    }
+
+    // Vérification de la longueur du message
+    if (message.length > 500) {
+        const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Le message ne doit pas dépasser 500 caractères.</p>`;
+        responseMessage.insertAdjacentHTML('beforeend', errorMessage);
+        return;
+    }
+
     // Envoi via EmailJS
     emailjs.send("service_pqn667l", "template_pryj4ir", {
         name: name,
