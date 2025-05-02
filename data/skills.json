@@ -1,74 +1,45 @@
 {
-    "tests_et_outils": [
-        {
-            "image": "cypress.webp",
-            "title": "Cypress"
-        },
-        {
-            "image": "postman.webp",
-            "title": "Postman"
-        },
-        {
-            "image": "jira.webp",
-            "title": "Jira"
-        },
-        {
-            "image": "swagger.webp",
-            "title": "Swagger"
-        },
-        {
-            "image": "api-testing.webp",
-            "title": "API Testing"
-        },
-        {
-            "image": "test.webp",
-            "title": "Tests logiciels"
-        }
-    ],
-    "strategie_de_test": [
-        {
-            "title": "Analyse des spécifications"
-        },
-        {
-            "title": "Conception de tests (cahier de recette, plans de test)"
-        },
-        {
-            "title": "Automatisation des tests"
-        },
-        {
-            "title": "Gestion des anomalies et reporting"
-        },
-        {
-            "title": "Stratégie de test"
-        },
-        {
-            "title": "Méthodologies de test"
-        }
-    ],
-    "developpement_et_outils": [
-        {
-            "image": "html.webp",
-            "title": "HTML"
-        },
-        {
-            "image": "css.webp",
-            "title": "CSS"
-        },
-        {
-            "image": "js.webp",
-            "title": "JavaScript"
-        },
-        {
-            "image": "react.webp",
-            "title": "React"
-        },
-        {
-            "image": "git.webp",
-            "title": "Git"
-        },
-        {
-            "image": "vscode.webp",
-            "title": "VS Code"
-        }
-    ]
-}
+    "tests_et_outils": {
+      "data": [
+        { "image": "cypress.webp", "title": "Cypress" },
+        { "image": "postman.webp", "title": "Postman" },
+        { "image": "jira.webp", "title": "Jira" },
+        { "image": "swagger.webp", "title": "Swagger" },
+        { "image": "api-testing.webp", "title": "API Testing" },
+        { "image": "test.webp", "title": "Tests logiciels" }
+      ],
+      "test": {
+            "title": "Tests et Outils",
+            "dataCy": "card-tests-outils"
+      }
+    },
+    "strategie_de_test": {
+      "data": [
+        { "title": "Analyse des spécifications" },
+        { "title": "Conception de tests (cahier de recette, plans de test)" },
+        { "title": "Automatisation des tests" },
+        { "title": "Gestion des anomalies et reporting" },
+        { "title": "Stratégie de test" },
+        { "title": "Méthodologies de test" }
+      ],
+      "test": {
+        "title": "Stratégie de Test",
+        "dataCy": "card-strategie-test"
+      }
+    },
+    "developpement_et_outils": {
+      "data": [
+        { "image": "html.webp", "title": "HTML" },
+        { "image": "css.webp", "title": "CSS" },
+        { "image": "js.webp", "title": "JavaScript" },
+        { "image": "react.webp", "title": "React" },
+        { "image": "git.webp", "title": "Git" },
+        { "image": "vscode.webp", "title": "VS Code" }
+      ],
+      "test": {
+        "title": "Développement et Outils",
+        "dataCy": "card-dev-outils"
+      }
+    }
+  }
+  

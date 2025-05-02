@@ -269,8 +269,9 @@ strong, b {
     object-fit: contain;
 }
 
-#skills p {
+#skills li {
     text-align: center;
+    list-style-type: none;
 }
 
 .logo-img {
@@ -296,6 +297,10 @@ strong, b {
 #about strong, #about b {
     font-weight: 600;
     color: #077a76;
+}
+
+.card .content ul {
+    padding-left: 0;
 }
 
 

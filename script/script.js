@@ -32,51 +32,58 @@ function handleNavbarCollapse() {
 // *************************************************** Portfolio *************************************************** //
 // ***************************************************************************************************************** //
 
-// Récupérer les données JSON et lancer les fonctions
-function createPortfolioFromJSON(categoryFilter = "Tous") {
-    fetch("data/portfolio.json")
-        .then(response => response.json())
-        .then(projects => {
-            const container = document.querySelector("#portfolio .container");
-            
-            container.querySelectorAll('.filters, .row').forEach(element => element.remove());
-
-            createFilters(projects);
-            createPortfolio(projects, categoryFilter);
-        });
-}
-
-// Création des filtres
-function createFilters(projects) {
+/**
+ * Crée les boutons de filtres en fonction des catégories récupérées depuis le fichier JSON.
+ * @async
+ * @returns {Promise<void>} Ne retourne aucune valeur.
+ */
+const createFilters = async (projects) => {
     const container = document.querySelector("#portfolio .container");
 
-    // Création des catégories sans doublon
-    const filters = ["Tous", ...new Set(projects.map(project => project.category))];
+    if (container.querySelectorAll(".filters").length > 0) {
+        return;
+    }
 
     const filterDiv = document.createElement("div");
     filterDiv.classList.add("filters", "text-center", "mb-4");
     filterDiv.setAttribute("data-cy", "filters-container");
 
-    filterDiv.insertAdjacentHTML("beforeend", 
-        filters.map(category => 
-            `<button class="btn btn-primary filter-btn" data-category="${category}">${category}</button>`
-        ).join('')
-    );
+    filterDiv.insertAdjacentHTML("beforeend", '<button class="btn btn-primary filter-btn active" data-category="Tous">Tous</button>');
+
+    const categories = [...new Set(projects.map(project => project.category))];
+    categories.forEach((category) => {
+        const btnHTML = `<button class="btn btn-primary filter-btn" data-category="${category}">${category}</button>`;
+        filterDiv.insertAdjacentHTML("beforeend", btnHTML);
+    });
 
     container.insertAdjacentElement("beforeend", filterDiv);
 
     document.querySelectorAll(".filter-btn").forEach(button => {
-        button.addEventListener("click", () => createPortfolioFromJSON(button.dataset.category));
+        button.addEventListener("click", () => {
+            document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            createPortfolio(projects, button.dataset.category);
+        });
     });
-}
+};
 
-// Création des cartes projets
-function createPortfolio(projects, categoryFilter) {
+/**
+ * Filtre les projets en fonction des boutons de filtres cliqués.
+ * @param {Array} projects - Liste des projets.
+ * @param {string} categoryFilter - Catégorie à filtrer.
+ */
+const createPortfolio = (projects, categoryFilter) => {
     const container = document.querySelector("#portfolio .container");
+    let row = container.querySelector('.row');
 
-    const row = document.createElement("div");
-    row.classList.add("row");
-    row.setAttribute("data-cy", "portfolio-row");
+    if (!row) {
+        row = document.createElement("div");
+        row.classList.add("row");
+    } else {
+        for (let i = row.children.length - 1; i >= 0; i--) {
+            row.removeChild(row.children[i]);
+        }
+    }
 
     projects.forEach(project => {
         if (categoryFilter === "Tous" || project.category === categoryFilter) {
@@ -109,35 +116,92 @@ function createPortfolio(projects, categoryFilter) {
     });
 
     container.insertAdjacentElement("beforeend", row);
-}
+};
+
+/**
+ * Récupère les données JSON et lance les fonctions pour créer les filtres et le portfolio.
+ */
+const createPortfolioFromJSON = async () => {
+    try {
+        const response = await fetch("data/portfolio.json");
+        const projects = await response.json();
+        const container = document.querySelector("#portfolio .container");
+
+        container.querySelectorAll('.filters, .row').forEach(element => element.remove());
+
+        await createFilters(projects);
+        createPortfolio(projects, "Tous");
+    } catch (error) {
+        console.error("Erreur lors de la récupération des données JSON :", error);
+    }
+};
 
 
 // ***************************************************************************************************************** //
 // ***************************************************** Skills **************************************************** //
 // ***************************************************************************************************************** //
 
-// Crée une card vide avec un titre
-function createCard(title, dataCy) {
-    return `
-        <div class="card p-3 shadow mb-3" style="width: 32%; min-width: 300px;" data-cy="${dataCy}">
-            <h3 class="text-center">${title}</h3>
-            <div class="content"></div>
-        </div>
+/**
+ * Fonction principale : récupère les données JSON et génère les sections de compétences.
+ * @async
+ * @returns {Promise<void>} Ne retourne aucune valeur.
+ */
+async function createSkillsFromJSON() {
+    const response = await fetch("data/skills.json");
+    const data = await response.json();
+    const container = document.querySelector("#skills .container");
+    container.classList.add("mt-4");
+
+    for (const category in data) {
+        const block = data[category];
+        const cardHTML = `
+            <div class="card p-3 shadow mb-3" style="width: 32%; min-width: 300px;" data-cy="${block.test.dataCy}">
+                <h3 class="text-center">${block.test.title}</h3>
+                <div class="content"></div>
+            </div>
+        `;
+        container.insertAdjacentHTML("beforeend", cardHTML);
+
+        const content = container.lastElementChild.querySelector(".content");
+
+        if (category === "strategie_de_test") {
+            insertStrategyList(block.data, content);
+        } else {
+            insertSkillsGrid(block.data, content);
+        }
+    }
+}
+
+/**
+ * Génère une liste pour la stratégie de test.
+ * @param {Array} items - Liste des éléments de stratégie.
+ * @param {HTMLElement} container - Conteneur où insérer la liste.
+ */
+function insertStrategyList(items, container) {
+    const strategyListHTML = `
+        <ul data-cy="card-strategie-test-ul">
+            ${items.map(item => `<li>${item.title}</li>`).join('')}
+        </ul>
     `;
+
+    container.insertAdjacentHTML("beforeend", strategyListHTML);
 }
 
-// Génère une liste pour stratégie de test
-function createList(items) {
-    return `<ul data-cy="card-strategie-test-ul">${items.map(item => `<p>${item.title}</p>`).join('')}</ul>`;
-}
 
-// Génère les blocs de 3 colonnes avec image et titre
-function createSkillsGrid(items) {
-    let html = '';
+/**
+ * Génère les blocs de compétences par ligne de 3.
+ * @param {Array} items - Liste des compétences.
+ * @param {HTMLElement} container - Conteneur où insérer les blocs.
+ */
+function insertSkillsGrid(items, container) {
+    let skillsRowHTML = '';
+
     items.forEach((item, index) => {
-        if (index % 3 === 0) html += '<div class="row justify-content-center mt-3">';
+        if (index % 3 === 0) {
+            skillsRowHTML += '<div class="row justify-content-center mt-3">';
+        }
 
-        html += `
+        skillsRowHTML += `
             <div class="col-4 text-center mb-3">
                 <div>
                     <img src="./images/${item.image}" class="logo-img" alt="${item.title}" data-cy="skills-img">
@@ -146,37 +210,12 @@ function createSkillsGrid(items) {
             </div>
         `;
 
-        if ((index + 1) % 3 === 0 || index === items.length - 1) html += '</div>';
+        if (index % 3 === 2 || index === items.length - 1) {
+            skillsRowHTML += '</div>';
+        }
     });
 
-    return html;
-}
-
-// Fonction principale qui assemble tout
-function createSkillsFromJSON() {
-    const container = document.querySelector("#skills .container");
-    container.classList.add( "mt-4");
-
-    fetch("data/skills.json")
-        .then(response => response.json())
-        .then(data => {
-            const blocks = [
-                { key: "tests_et_outils", title: "Tests et Outils", "data-cy": "card-tests-outils" },
-                { key: "strategie_de_test", title: "Stratégie de Test", "data-cy": "card-strategie-test" },
-                { key: "developpement_et_outils", title: "Développement et Outils", "data-cy": "card-dev-outils" }
-            ];
-            
-            blocks.forEach(({ key, title, "data-cy": dataCy }) => {
-                container.insertAdjacentHTML("beforeend", createCard(title, dataCy));
-                const content = container.lastElementChild.querySelector(".content");
-            
-                if (key === "strategie_de_test") {
-                    content.insertAdjacentHTML("beforeend", createList(data[key]));
-                } else {
-                    content.insertAdjacentHTML("beforeend", createSkillsGrid(data[key]));
-                }
-            });            
-        });
+    container.insertAdjacentHTML("beforeend", skillsRowHTML);
 }
 
 
