@@ -1,13 +1,19 @@
-import { handleNavbarScroll, handleNavbarCollapse } from './navbar.js';
-import { createSkillsFromJSON } from './skills.js';
-import { createPortfolioFromJSON } from './portfolio.js';
-import { setupContactForm } from './contact.js';
+import { Navbar } from './navbar.js';
+import { Portfolio } from './portfolio.js';
+import { Skills } from './skills.js';
+import { Contact } from './contact.js';
 
-// Call the functions to execute the code
 document.addEventListener('DOMContentLoaded', () => {
-    handleNavbarScroll();
-    handleNavbarCollapse();
-    createSkillsFromJSON();
-    createPortfolioFromJSON();
-    setupContactForm();
+    const navbar = new Navbar();
+    navbar.handleScroll();
+    navbar.handleCollapse();
+
+    const portfolio = new Portfolio();
+    portfolio.createPortfolioFromJSON();
+
+    const skills = new Skills();
+    skills.createSkillsFromJSON();
+
+    const contact = new Contact();
+    contact.setupContactForm();
 });

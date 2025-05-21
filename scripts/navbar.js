@@ -1,24 +1,26 @@
-// Function to add the "navbarDark" class to the navbar on scroll
-export const handleNavbarScroll = () => {
-    const header = document.querySelector(".navbar");
-    window.onscroll = function () {
-        const top = window.scrollY;
-        if (top >= 100) {
-            header.classList.add("navbarDark");
-        } else {
-            header.classList.remove("navbarDark");
-        }
-    };
-};
+export class Navbar {
+    constructor() {
+        this.header = document.querySelector(".navbar");
+        this.navLinks = document.querySelectorAll(".nav-item");
+        this.menuToggle = document.getElementById("navbarSupportedContent");
+    }
 
-// Function to handle navbar collapse on small devices after a click
-export const handleNavbarCollapse = () => {
-    const navLinks = document.querySelectorAll(".nav-item");
-    const menuToggle = document.getElementById("navbarSupportedContent");
+    handleScroll() {
+        window.onscroll = () => {
+            const top = window.scrollY;
+            if (top >= 100) {
+                this.header.classList.add("navbarDark");
+            } else {
+                this.header.classList.remove("navbarDark");
+            }
+        };
+    }
 
-    navLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-            new bootstrap.Collapse(menuToggle).toggle();
+    handleCollapse() {
+        this.navLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                new bootstrap.Collapse(this.menuToggle).toggle();
+            });
         });
-    });
-};
+    }
+}

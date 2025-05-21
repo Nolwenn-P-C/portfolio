@@ -1,103 +1,92 @@
-/**
- * Crée les boutons de filtres en fonction des catégories récupérées depuis le fichier JSON.
- * @async
- * @returns {Promise<void>} Ne retourne aucune valeur.
- */
-export const createFilters = async (projects) => {
-    const container = document.querySelector("#portfolio .container");
-
-    if (container.querySelectorAll(".filters").length > 0) {
-        return;
+export class Portfolio {
+    constructor() {
+        this.container = document.querySelector("#portfolio .container");
     }
 
-    const filterDiv = document.createElement("div");
-    filterDiv.classList.add("filters", "text-center", "mb-4");
-    filterDiv.setAttribute("data-cy", "filters-container");
+    async createFilters(projects) {
+        if (this.container.querySelectorAll(".filters").length > 0) {
+            return;
+        }
 
-    filterDiv.insertAdjacentHTML("beforeend", '<button class="btn btn-primary filter-btn active" data-category="Tous">Tous</button>');
+        const filterDiv = document.createElement("div");
+        filterDiv.classList.add("filters", "text-center", "mb-4");
+        filterDiv.setAttribute("data-cy", "filters-container");
 
-    const categories = [...new Set(projects.map(project => project.category))];
-    categories.forEach((category) => {
-        const btnHTML = `<button class="btn btn-primary filter-btn" data-category="${category}">${category}</button>`;
-        filterDiv.insertAdjacentHTML("beforeend", btnHTML);
-    });
+        filterDiv.insertAdjacentHTML("beforeend", '<button class="btn btn-primary filter-btn active" data-category="Tous">Tous</button>');
 
-    container.insertAdjacentElement("beforeend", filterDiv);
-
-    document.querySelectorAll(".filter-btn").forEach(button => {
-        button.addEventListener("click", () => {
-            document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            createPortfolio(projects, button.dataset.category);
+        const categories = [...new Set(projects.map(project => project.category))];
+        categories.forEach((category) => {
+            const btnHTML = `<button class="btn btn-primary filter-btn" data-category="${category}">${category}</button>`;
+            filterDiv.insertAdjacentHTML("beforeend", btnHTML);
         });
-    });
-};
 
-/**
- * Filtre les projets en fonction des boutons de filtres cliqués.
- * @param {Array} projects - Liste des projets.
- * @param {string} categoryFilter - Catégorie à filtrer.
- */
-export const createPortfolio = (projects, categoryFilter) => {
-    const container = document.querySelector("#portfolio .container");
-    let row = container.querySelector('.row');
+        this.container.insertAdjacentElement("beforeend", filterDiv);
 
-    if (!row) {
-        row = document.createElement("div");
-        row.classList.add("row");
-    } else {
-        for (let i = row.children.length - 1; i >= 0; i--) {
-            row.removeChild(row.children[i]);
-        }
+        document.querySelectorAll(".filter-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                this.createPortfolio(projects, button.dataset.category);
+            });
+        });
     }
 
-    projects.forEach(project => {
-        if (categoryFilter === "Tous" || project.category === categoryFilter) {
-            const card = document.createElement("div");
-            card.classList.add("col-lg-4", "mt-4");
-            card.setAttribute("data-cy", "portfolio-card");
-            card.setAttribute("data-category", project.category);
+    createPortfolio(projects, categoryFilter) {
+        let row = this.container.querySelector('.row');
 
-            card.insertAdjacentHTML("beforeend", `
-                <div class="card portfolioContent common-block">
-                    <img class="card-img-top" src="images/${project.image}" alt="${project.alt}" style="width:100%" data-cy="portfolio-img">
-                    <div class="card-body">
-                        <h3 class="card-title" data-cy="portfolio-title">${project.title}</h3>
-                        <div class="keywords" data-cy="portfolio-keywords">
-                            ${project.keywords.map(keyword => `<span class="badge bg-secondary">${keyword}</span>`).join('')}
-                        </div>
-                        <p>Pour plus d'informations</p>
-                    </div>
-                    <div class="overlay">
-                        <div class="overlay-content">
-                            <p data-cy="portfolio-text">${project.text}</p>
-                            <a href="${project.accès}" class="btn btn-primary" target="_blank" data-cy="portfolio-lien">Consulter</a>
-                        </div>
-                    </div>
-                </div>
-            `);
-
-            row.appendChild(card);
+        if (!row) {
+            row = document.createElement("div");
+            row.classList.add("row");
+        } else {
+            for (let i = row.children.length - 1; i >= 0; i--) {
+                row.removeChild(row.children[i]);
+            }
         }
-    });
 
-    container.insertAdjacentElement("beforeend", row);
-};
+        projects.forEach(project => {
+            if (categoryFilter === "Tous" || project.category === categoryFilter) {
+                const card = document.createElement("div");
+                card.classList.add("col-lg-4", "mt-4");
+                card.setAttribute("data-cy", "portfolio-card");
+                card.setAttribute("data-category", project.category);
 
-/**
- * Récupère les données JSON et lance les fonctions pour créer les filtres et le portfolio.
- */
-export const createPortfolioFromJSON = async () => {
-    try {
-        const response = await fetch("data/portfolio.json");
-        const projects = await response.json();
-        const container = document.querySelector("#portfolio .container");
+                card.insertAdjacentHTML("beforeend", `
+                    <div class="card portfolioContent common-block">
+                        <img class="card-img-top" src="images/${project.image}" alt="${project.alt}" style="width:100%" data-cy="portfolio-img">
+                        <div class="card-body">
+                            <h3 class="card-title" data-cy="portfolio-title">${project.title}</h3>
+                            <div class="keywords" data-cy="portfolio-keywords">
+                                ${project.keywords.map(keyword => `<span class="badge bg-secondary">${keyword}</span>`).join('')}
+                            </div>
+                            <p>Pour plus d'informations</p>
+                        </div>
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <p data-cy="portfolio-text">${project.text}</p>
+                                <a href="${project.accès}" class="btn btn-primary" target="_blank" data-cy="portfolio-lien">Consulter</a>
+                            </div>
+                        </div>
+                    </div>
+                `);
 
-        container.querySelectorAll('.filters, .row').forEach(element => element.remove());
+                row.appendChild(card);
+            }
+        });
 
-        await createFilters(projects);
-        createPortfolio(projects, "Tous");
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données JSON :", error);
+        this.container.insertAdjacentElement("beforeend", row);
     }
-};
+
+    async createPortfolioFromJSON() {
+        try {
+            const response = await fetch("data/portfolio.json");
+            const projects = await response.json();
+
+            this.container.querySelectorAll('.filters, .row').forEach(element => element.remove());
+
+            await this.createFilters(projects);
+            this.createPortfolio(projects, "Tous");
+        } catch (error) {
+            console.error("Erreur lors de la récupération des données JSON :", error);
+        }
+    }
+}

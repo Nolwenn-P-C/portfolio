@@ -1,63 +1,69 @@
-export const setupContactForm = () => {
-    document.getElementById("contact-form").addEventListener("submit", async (event) => {
-        event.preventDefault();
+export class Contact {
+    constructor() {
+        this.form = document.getElementById("contact-form");
+    }
 
-        const sanitizeInput = (input) => {
-            const tempDiv = document.createElement('div');
-            tempDiv.textContent = input;
-            return tempDiv.innerHTML;
-        };
+    setupContactForm() {
+        this.form.addEventListener("submit", async (event) => {
+            event.preventDefault();
 
-        const name = sanitizeInput(document.getElementById("name").value.trim());
-        const email = sanitizeInput(document.getElementById("email").value.trim());
-        const message = sanitizeInput(document.getElementById("message").value.trim());
+            const sanitizeInput = (input) => {
+                const tempDiv = document.createElement('div');
+                tempDiv.textContent = input;
+                return tempDiv.innerHTML;
+            };
 
-        const responseMessage = document.getElementById("response-message");
+            const name = sanitizeInput(document.getElementById("name").value.trim());
+            const email = sanitizeInput(document.getElementById("email").value.trim());
+            const message = sanitizeInput(document.getElementById("message").value.trim());
 
-        while (responseMessage.firstChild) {
-            responseMessage.removeChild(responseMessage.firstChild);
-        }
+            const responseMessage = document.getElementById("response-message");
 
-        if (!name || !email || !message) {
-            const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Tous les champs sont requis.</p>`;
-            responseMessage.insertAdjacentHTML('beforeend', errorMessage);
-            return;
-        }
+            while (responseMessage.firstChild) {
+                responseMessage.removeChild(responseMessage.firstChild);
+            }
 
-        const isValidEmail = (email) => {
-            return /^[^\s@]+@[^\s@]+\.(fr|com|net|org|io|edu)$/.test(email.toLowerCase());
-        };
+            if (!name || !email || !message) {
+                const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Tous les champs sont requis.</p>`;
+                responseMessage.insertAdjacentHTML('beforeend', errorMessage);
+                return;
+            }
 
-        if (!isValidEmail(email)) {
-            const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Adresse email invalide.</p>`;
-            responseMessage.insertAdjacentHTML('beforeend', errorMessage);
-            return;
-        }
+            const isValidEmail = (email) => {
+                return /^[^\s@]+@[^\s@]+\.(fr|com|net|org|io|edu)$/.test(email.toLowerCase());
+            };
 
-        if (message.length > 500) {
-            const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Le message ne doit pas dépasser 500 caractères.</p>`;
-            responseMessage.insertAdjacentHTML('beforeend', errorMessage);
-            return;
-        }
+            if (!isValidEmail(email)) {
+                const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Adresse email invalide.</p>`;
+                responseMessage.insertAdjacentHTML('beforeend', errorMessage);
+                return;
+            }
 
-        try {
-            const response = await emailjs.send("service_pqn667l", "template_pryj4ir", {
-                name: name,
-                email: email,
-                message: message
-            }, "jhxpsV59jYZ8lGLku");
+            if (message.length > 500) {
+                const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Le message ne doit pas dépasser 500 caractères.</p>`;
+                responseMessage.insertAdjacentHTML('beforeend', errorMessage);
+                return;
+            }
 
-            console.log("Email envoyé avec succès !", response);
+            try {
+                const response = await emailjs.send("service_pqn667l", "template_pryj4ir", {
+                    name: name,
+                    email: email,
+                    message: message
+                }, "jhxpsV59jYZ8lGLku");
 
-            const successMessage = `<p class="text-center" style="color: green;" data-cy="success-message">Message envoyé avec succès.</p>`;
-            responseMessage.insertAdjacentHTML('beforeend', successMessage);
+                console.log("Email envoyé avec succès !", response);
 
-            document.getElementById("contact-form").reset();
-        } catch (error) {
-            console.log("Erreur lors de l'envoi", error);
+                const successMessage = `<p class="text-center" style="color: green;" data-cy="success-message">Message envoyé avec succès.</p>`;
+                responseMessage.insertAdjacentHTML('beforeend', successMessage);
 
-            const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Erreur lors de l'envoi du message.</p>`;
-            responseMessage.insertAdjacentHTML('beforeend', errorMessage);
-        }
-    });
-};
+                this.form.reset();
+            } catch (error) {
+                console.log("Erreur lors de l'envoi", error);
+
+                const errorMessage = `<p class="text-center" style="color: red;" data-cy="error-message">Erreur lors de l'envoi du message.</p>`;
+                responseMessage.insertAdjacentHTML('beforeend', errorMessage);
+            }
+        });
+    }
+}
