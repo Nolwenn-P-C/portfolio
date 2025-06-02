@@ -105,6 +105,7 @@ strong, b {
 
 .hero_title {
     font-size: 4.5rem;
+    margin-bottom: 4rem; 
 }
 
 .hero_desc {
@@ -119,6 +120,12 @@ strong, b {
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
+}
+
+.bgimage h2 {
+    
+    margin-top: 4rem; 
+    font-size: 3rem
 }
 
 
